@@ -1,0 +1,12 @@
+SELECT 
+	genres.name,
+	COUNT(*) n_songs,
+    SUM(tracks.bytes) total_bytes,
+    AVG(tracks.bytes) avg_bytes
+FROM genres 
+JOIN tracks ON genres.GenreId = tracks.GenreId
+WHERE genres.name <> 'Rock' -- not include Rock genre
+GROUP BY genres.name
+HAVING n_songs < 300 -- filter groups after group by
+ORDER BY n_songs DESC 
+LIMIT 5; -- descending order
